@@ -5,7 +5,7 @@ const connectDB = async () => {
         // useFindAndModify: false
     })
 
-    console.log(`MongoDB Conencted: ${conn.connection.host}`)
+    console.log(`MongoDB Conencted: ${conn.connection.host}`.cyan)
 }
 
 module.exports = connectDB
