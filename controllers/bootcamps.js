@@ -34,7 +34,7 @@ getBootcamp = async (req, res, next) => {
         const bootcamp = await Bootcamp.findById(req.params.id);
 
         if (!bootcamp) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: `Invalid ID - ${req.params.id}`
             })
@@ -91,7 +91,8 @@ udpateBootcamp = async (req, res, next) => {
     
         if (!bootcamp) {
             return res.status(400).json({
-                success: false
+                success: false,
+                data: `Invalid ID - ${req.params.id}`
             })
         }
     
@@ -120,7 +121,7 @@ deleteBootcamp = async (req, res, next) => {
         const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
 
         if (!bootcamp) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: `Invalid ID - ${req.params.id}`
             })
