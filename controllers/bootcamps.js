@@ -18,9 +18,7 @@ getBootcamps = async (req, res, next) => {
 
     } catch (error) {
 
-        res.status(400).json({
-            success: false
-        })
+        next(error)
 
     }
 
@@ -36,7 +34,7 @@ getBootcamp = async (req, res, next) => {
         const bootcamp = await Bootcamp.findById(req.params.id);
 
         if (!bootcamp) {
-            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
+            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 400))
         }
 
         res.status(200).json({
@@ -46,7 +44,7 @@ getBootcamp = async (req, res, next) => {
 
     } catch (error) {
 
-        next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
+        next(error)
 
     }
 
@@ -67,9 +65,7 @@ createBootcamp = async (req, res, next) => {
         
     } catch (error) {
 
-        res.status(400).json({
-            success: false
-        })
+        next(error)
         
     }
 }
@@ -87,10 +83,7 @@ udpateBootcamp = async (req, res, next) => {
         })
     
         if (!bootcamp) {
-            return res.status(400).json({
-                success: false,
-                data: `Invalid ID - ${req.params.id}`
-            })
+            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 400))
         }
     
         res.status(200).json({
@@ -100,9 +93,7 @@ udpateBootcamp = async (req, res, next) => {
 
     } catch (error) {
 
-        res.status(400).json({
-            success: false
-        })
+        next(error)
 
     }
     
@@ -118,10 +109,7 @@ deleteBootcamp = async (req, res, next) => {
         const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
 
         if (!bootcamp) {
-            return res.status(400).json({
-                success: false,
-                message: `Invalid ID - ${req.params.id}`
-            })
+            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 400))
         }
 
         res.status(200).json({
@@ -131,9 +119,7 @@ deleteBootcamp = async (req, res, next) => {
 
     } catch (error) {
 
-        res.status(400).json({
-            success: false
-        })
+        next(error)
         
     }
 }
