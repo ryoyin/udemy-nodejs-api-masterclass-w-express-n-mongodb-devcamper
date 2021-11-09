@@ -11,7 +11,7 @@ const Bootcamp = require('../models/Bootcamp')
 // Example  Select {{URL}}/api/v1/bootcamps?select=name,description
 // Example  Sort {{URL}}/api/v1/bootcamps?sort=name
 // Example  Pagination {{URL}}/api/v1/bootcamps?page=2&limit=2
-getBootcamps = asyncHandler(async (req, res, next) => {
+exports.getBootcamps = asyncHandler(async (req, res, next) => {
     let query
 
     // copy request query
@@ -86,7 +86,7 @@ getBootcamps = asyncHandler(async (req, res, next) => {
 // @desc    Get bootcamp by id
 // @route   GET /api/v1/bootcamps/:id
 // @access  Public
-getBootcamp = asyncHandler(async (req, res, next) => {
+exports.getBootcamp = asyncHandler(async (req, res, next) => {
     const bootcamp = await Bootcamp.findById(req.params.id);
 
     if (!bootcamp) {
@@ -102,7 +102,7 @@ getBootcamp = asyncHandler(async (req, res, next) => {
 // @desc    Create new bootcamp
 // @route   POST /api/v1/bootcamps
 // @access  Private
-createBootcamp = asyncHandler(async (req, res, next) => {
+exports.createBootcamp = asyncHandler(async (req, res, next) => {
     const bootcamp = await Bootcamp.create(req.body)
 
     res.status(201).json({
@@ -114,7 +114,7 @@ createBootcamp = asyncHandler(async (req, res, next) => {
 // @desc    Update bootcamp by id
 // @route   PUT /api/v1/bootcamps/:id
 // @access  Private
-udpateBootcamp = asyncHandler(async (req, res, next) => {
+exports.udpateBootcamp = asyncHandler(async (req, res, next) => {
     const bootcamp = await Bootcamp.findByIdAndUpdate(req.params.id, req.body, {
         new:true,
         runValidators: true
@@ -133,7 +133,7 @@ udpateBootcamp = asyncHandler(async (req, res, next) => {
 // @desc    Delete bootcamp by id
 // @route   DELETE /api/v1/bootcamps/:id
 // @access  Private
-deleteBootcamp = asyncHandler(async (req, res, next) => {
+exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
     const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
 
     if (!bootcamp) {
@@ -149,7 +149,7 @@ deleteBootcamp = asyncHandler(async (req, res, next) => {
 // @desc    Get bootcamps within a radius
 // @route   GET /api/v1/bootcamps/radius/:zipcode/:distance
 // @access  Private
-getBootcampsInRadius = asyncHandler(async (req, res, next) => {
+exports.getBootcampsInRadius = asyncHandler(async (req, res, next) => {
     const { zipcode, distance } = req.params
 
     // Get lag/lng from geocoder
@@ -172,5 +172,3 @@ getBootcampsInRadius = asyncHandler(async (req, res, next) => {
         data: bootcamps
     })
 })
-
-module.exports = { getBootcamps, getBootcamp, createBootcamp, udpateBootcamp, deleteBootcamp, getBootcampsInRadius }
