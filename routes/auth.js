@@ -6,7 +6,8 @@ const {
     forgotPassword,
     resetPassword,
     updateDetails,
-    updatePassword 
+    updatePassword, 
+    logout
 } = require('../controllers/auth')
 
 const router = express.Router()
@@ -17,6 +18,7 @@ router
     .post('/register', register)
     .post('/login', login)
     .get('/me', protect, getMe)
+    .get('/logout', logout)
     .put('/updatedetails', protect, updateDetails)
     .put('/updatepassword', protect, updatePassword)
     .post('/forgotpassword', forgotPassword)
